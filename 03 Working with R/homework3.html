@@ -124,15 +124,18 @@ with the appropriate variables for the homework.
 Set the working directory.
 No Rchunk is needed to accomplish this.
 -->
+<p>Set the location of the working files.</p>
 <pre class="r"><code>setwd(&quot;~/Documents/PSY441/CapstoneReproducibility/03 Working with R&quot;)</code></pre>
 <!--
 Read in the homework3.csv data. For each of the following steps you
 should preface your R commands with some plain English explanation.
 -->
+<p>Load in the data.</p>
 <pre class="r"><code>dat&lt;-read.csv(&quot;homework3.csv&quot;)</code></pre>
 <!--
 Check the structure of the data.
 -->
+<p>Look at the structure of the data.</p>
 <pre class="r"><code>str(dat)</code></pre>
 <pre><code>## 'data.frame':    100 obs. of  3 variables:
 ##  $ major       : Factor w/ 2 levels &quot;business&quot;,&quot;psychology&quot;: 2 2 2 2 2 2 2 2 2 2 ...
@@ -142,6 +145,7 @@ Check the structure of the data.
 Find the mean, median, and standard deviation using the sd() function
 for the overall level of conservatism.
 -->
+<p>Use the sd() function to find the mean, median and standard deviation for the overall level of conservatism.</p>
 <pre class="r"><code>mean(dat$conservatism)</code></pre>
 <pre><code>## [1] 52.29458</code></pre>
 <pre class="r"><code>median(dat$conservatism)</code></pre>
@@ -151,11 +155,13 @@ for the overall level of conservatism.
 <!--
 Find the mean level of support for freshmen only.
 -->
+<p>Calculate the mean level of conservatism for freshmen only.</p>
 <pre class="r"><code>mean(dat$conservatism[dat$year==&quot;freshman&quot;])</code></pre>
 <pre><code>## [1] 47.50033</code></pre>
 <!--
-Find the mean level of support for sophomore business students only.
+Find the mean level of conservatism for sophomore business students only.
 -->
+<p>Calculate the mean level of support for sophomore business students only.</p>
 <pre class="r"><code>mean(dat$conservatism[dat$year==&quot;sophomore&quot; &amp; dat$major==&quot;business&quot;])</code></pre>
 <pre><code>## [1] 61.60146</code></pre>
 </div>
