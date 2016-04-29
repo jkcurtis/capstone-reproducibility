@@ -99,7 +99,7 @@ Next I need to use dplyr to summarize the data and find the means and
 standard errors of the means for the different groups.
 
 ```{r}
-temp<-dat%>%group_by(group)%>%
+temp<-df%>%group_by(group)%>%
   summarize(means=mean(rt), sems=sd(rt)/sqrt(length(rt)))
 ```
 
