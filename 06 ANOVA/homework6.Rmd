@@ -1,10 +1,16 @@
 ## Example 6
+library (ggplot2)
+library (gplots)
+library (dplyr)
 
 <!--
 Set the working directory.
 No Rchunk is needed to accomplish this.
 -->
-
+Set the working directory.
+```{r}
+setwd("~/documents/PSY441/CapstoneReproducibility/06 ANOVA")
+```
 <!--
 Read in the homework6.csv data. For each of the following steps you
 should preface your R commands with some plain English explanation.
@@ -15,15 +21,26 @@ X among green Xs) and conjunction searches (e.g. looking for a red
 X among green Xs and red Os). We're also looking at how the number
 of distractors within the search display effect our data.
 -->
-
+First we will read in the data. 
+```{r}
+dat<-read.csv("homework6.csv")
+```
 
 
 <!--
 Check the structure of the data and change any variables that should
 be factor variables into factor variables
 -->
-
-
+Next we will look at the structure. 
+```{r}
+str(dat)
+```
+Change the integer variables so that they will be treated as factor variables. 
+```{r}
+dat$distractors<-as.factor(dat$distractors)
+dat$subject<-as.factor(dat$subject)
+dat$subject2<-as.factor(dat$subject2)
+```
 
 <!--
 Perform a one-way between-subjects ANOVA examining for effects of 
@@ -31,8 +48,56 @@ the the number of distractors for the conjunction searches only.
 Also create a line graph to help you interpret the results of your
 analysis.
 -->
+A one-way between-subjects ANOVA should be performed for effects of the number of distractors for the conjunction searches. 
 
+The first step is to get only the data from the conjunction searches.
 
+```{r}
+temp<-dat[dat$type=="conjunction",]
+```
+
+Then we can run our ANOVA.
+
+```{r}
+summary(aov(rt~distractors, data=temp))
+```
+
+There's a significant effect for the number of distractors, F(2,21) = 8.60, p < .05. To interpret these data better, I'll create a line graph that shows how the number of distractors affected the performance.
+
+```{r}
+library(ggplot2)
+library(gplots)
+library(dplyr)
+
+temp<-temp%>%group_by(distractors)%>%
+  summarize(means=mean(rt),
+            sems=sd(rt)/sqrt(length(rt)))
+
+f<-ggplot(temp, aes(x=as.factor(distractors),
+                    y=means,
+                    group=1))+
+  geom_line(size=1)+
+  geom_point(size=2)+
+  geom_errorbar(aes(ymax=means+sems,
+                    ymin=means-sems),
+                width=.2)+
+  ggtitle("Distraction Effect")+
+  labs(x="Distractors",y="Performance")+
+  theme(plot.title=element_text(size=15,face="bold",vjust=.5))+
+  theme(axis.title.x=element_text(size=12,face="bold",vjust=-.25))+
+  theme(axis.title.y=element_text(size=12,face="bold",vjust=1))+
+  theme(axis.text.x=element_text(size=10,face="bold",color="black"))+
+  theme(axis.text.y=element_text(size=10,face="bold",color="black"))+
+  coord_cartesian(ylim=c(min(temp$means)-2*max(temp$sems),
+                         max(temp$means)+2*max(temp$sems)))+
+  theme(panel.border=element_blank(),axis.line=element_line())+
+  theme(panel.grid.major.x=element_blank())+
+  theme(panel.grid.major.y=element_line(color="darkgrey"))+
+  theme(panel.grid.minor.y=element_blank())
+f
+```
+
+From the figure we can see that for the conjunction searches, the more distractors there are, the higher the result. 
 
 <!--
 Perform a one-way within subjects ANOVA on the same data you analyzed

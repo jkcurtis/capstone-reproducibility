@@ -41,13 +41,13 @@ mean(dat$wpm[dat$music=="metal"])
 mean(dat$wpm[dat$music=="none"])
 ```
 
-By looking at the means it appears that the metal group had more words per minute than the group with no music.
+By looking at the means for both groups it appears that the metal group typed more words per minute than the no music group.
 <!--
 Run an independent t-test to determine if the mean wpm for the no music group is different from the mean wpm from heavy metal group. Interpret the results of your analysis after you run it.
 -->
 
 
-Run an independent t-test to determine if the mean wpm for the
+I will run an independent t-test to determine if the mean wpm for the
 metal music group is different from the mean wpm of the no music group. 
 ```{r}
 t.test(dat$wpm[dat$music=="metal"],
@@ -55,14 +55,14 @@ t.test(dat$wpm[dat$music=="metal"],
        var.equal=TRUE)
 ```
 
-The results of the t-test show that the participants of the metal music group typed more words per minute than the participants of the no music group, t(62) = 2.33, p = .0230.
+The results of the t-test show that the mean words per minute for the metal music group is different from the mean words per minute of the no music group, t(62) = 2.33, p = .0230.
 <!--
 Run another independent t-test with the alternative hypothesis that
 the heavy metal group types faster than the no music group. Interpret
 the results of your analyses.
 -->
-Run an independent t-test with the alternative hypothesis
-that the metal music group is faster than the no music group.
+I will run an independent t-test with the alternative hypothesis
+that the metal music group typed faster than the no music group.
 
 ```{r}
 t.test(dat$wpm[dat$music=="metal"],
@@ -131,11 +131,13 @@ f
 <!--
 Conduct and interpret a two-tailed paired t-test on the data.
 -->
-Conduct and interpret a two-tailed paired t-test on the data.
+
+
+Now I will conduct and interpret a two-tailed paired t-test on the data.
 ```{r}
 t.test(dat$wpm[dat$music=="none"],
        dat$wpm[dat$music=="metal"],
        var.equal=TRUE,
        paired=TRUE)
 ```
-Participants in the metal music group typed faster than the participants in the no music group, t(31) = -12.153, p < .05.
+Results show that the typing speed was different for the two groups. The means indicate that the participants in the metal music group typed faster than the participants in the no music group, t(31) = -12.153, p < .05.
