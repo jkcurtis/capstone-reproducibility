@@ -53,7 +53,7 @@ Now we can run our ANOVA.
 ```{r}
 summary(aov(percent~position, data=temp))
 ```
-
+q
 There's a significant effect of which position a word appears in on
 a list, F(9,110) = 16.3, p < .05. To interpret these data better,
 I'll create a line graph that shows the percent recalled for the
